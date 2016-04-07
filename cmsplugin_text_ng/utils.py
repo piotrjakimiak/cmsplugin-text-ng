@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
+from collections import OrderedDict
 from functools import wraps
 
 from django.template import loader, TemplateSyntaxError
-from django.utils.datastructures import SortedDict
 
 from cmsplugin_text_ng.templatetags.text_ng_tags import DefineNode
 from cmsplugin_text_ng.type_registry import get_type
@@ -23,7 +23,7 @@ def get_variables_from_template(template):
     except AttributeError:
         nodelist = template.template.nodelist
     variable_nodes = [n for n in nodelist if isinstance(n, DefineNode)]
-    variables = SortedDict()
+    variables = OrderedDict()
     for node in variable_nodes:
         if node.variable_name in variables:
             raise TemplateSyntaxError('%s defined multiple times - %s' % (

@@ -73,6 +73,3 @@ class TextNGVariableText(TextNGVariableBase):
     class Meta:
         verbose_name = _('text')
         verbose_name_plural = _('texts')
-
-if StrictVersion(django.get_version()) < StrictVersion('1.7'):
-    register_type('text', TextNGVariableText)

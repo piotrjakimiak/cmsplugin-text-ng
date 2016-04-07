@@ -3,7 +3,6 @@ from django.template.loader import get_template
 from django.contrib.admin import StackedInline
 from django.utils.translation import ugettext_lazy as _
 from django.utils.safestring import mark_safe
-from django.utils.datastructures import SortedDict
 
 from cms.plugin_pool import plugin_pool
 from cmsplugin_text_ng.forms import PluginAddForm, PluginEditForm
@@ -49,11 +48,10 @@ class TextPluginNextGeneration(TextPlugin):
 
         if obj and obj.pk:
             variables = get_variables_from_template(obj.template.path).items()
-            types = SortedDict()
+            types = defaultdict(int)
             for label, variable in variables:
                 model_class = variable['type']
                 initial_field_values = variable['initial_field_values']
-                types[model_class] = types.get(model_class, 0)  # can't use defaultdict :(
                 types[model_class] += 1
                 model_class.objects.get_or_create(
                     text_ng=obj,
