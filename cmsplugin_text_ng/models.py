@@ -53,7 +53,7 @@ class TextNG(AbstractText):
 
 class TextNGVariableBase(models.Model):
     select_related = []
-    text_ng = models.ForeignKey(TextNG, related_name='+')
+    text_ng = models.ForeignKey(TextNG)
     label = models.CharField(_('label'), max_length=20, validators=[RegexValidator(regex='[_a-z]+', message=_('Only lower case characters.'))])
 
     def __unicode__(self):
